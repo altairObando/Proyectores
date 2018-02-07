@@ -1,0 +1,134 @@
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - SPP</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    
+</head>
+<body>
+    <!--=== Encabezado de la aplicacion ===-->
+    <!-- Contenedor para Barra lateral izquierda -->
+    <div class="wrapper">
+        <!-- Barra lateral -->
+        <div class="sidebar" data-color="red" data-image="Content/img/sidebar-5.jpg">
+            <div class="sidebar-wrapper">
+                <!-- Logo de la aplicacion -->
+                <div class="logo">
+                    <a href="@Url.Action("Index", "Home")" class="simple-text">
+                        <i class=""></i> SPP
+                    </a>
+                </div>
+                <!-- Elementos del menu principal -->
+                <ul class="nav">
+
+                    <!--usuarios-->
+                    <li>
+                        <a href="@Url.Action("Index", "Usuarios")">
+                            <i class="pe-7s-user"></i>
+                            <p>Usuarios</p>
+                        </a>
+                    </li>
+                    <!--Docentes-->
+                    <li>
+                        <a href="@Url.Action("Index","Docentes")">
+                            <i class="pe-7s-coffee"></i>
+                            <p>Docentes</p>
+                        </a>                        
+                    </li>
+                    <!--DEPARTAMENTOS-->
+                    <li>
+                        <a href="@Url.Action("Index","Departamento")">
+                            <i class="pe-7s-world"></i>
+                            <p>Departamentos</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index","Proyector")">
+                            <i class="pe-7s-display1"></i>
+                            <p>Proyectores</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index","Prestamos")">
+                            <i class="pe-7s-notebook"></i>
+                            <p>Prestamos</p>
+                        </a>
+                    </li>
+
+                    <!-- Fondo de barra lateral -->
+                    
+                </ul>
+                
+            </div>
+        </div>
+        
+        <!-- Diseniando panel principal -->
+        <div class="main-panel">
+            <nav class="navbar navbar-default navbar-fixed">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example2">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a href="#" class="navbar-brand">@ViewBag.Title</a>
+                    </div>
+                    <!-- Menu superior derecho-->
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <p>
+                                    Elementos rapidos
+                                    <b class="caret"></b>
+                                </p>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Agregar Marcas</a></li>
+                                <li><a href="#">Estados de prestamo</a></li>
+                                <li><a href="#">Especialidad Docentes</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Registrar Proyector</a></li>
+                                <li><a href="#">Registrar Prestamo</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            
+                        </li>
+                            @if (Request.IsAuthenticated)
+                            {
+                              <li>
+                                  <a href="@Url.Action("Index", "Manage")">
+                                    <p>Hola @User.Identity.GetUserName() !</p>
+                                  </a>
+                              </li>
+                              <li>
+                                  <a href="@Url.Action("LogOff", "Account")">
+                                      <p>
+                                          Cerrar sesión
+                                      </p>
+                                  </a>
+                              </li>
+                            }
+                        </ul>
+                    <!-- Fin del menu superior derecho-->
+
+                </div>
+            </nav>
+            <div class="content">
+                @RenderBody()
+            </div>
+        </div>
+        <!-- Fin del panel principal-->
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

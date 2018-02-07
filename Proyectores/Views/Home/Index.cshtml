@@ -1,0 +1,71 @@
+﻿@{
+    ViewBag.Title = "Inicio Prestamo de Proyectores";
+
+ ViewBag.Title = "Registro de Proyectores";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<p><h2>
+    <a>Estadisticas de proyectores</a>
+</h2>
+</p>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="header">
+                    <h4 class="title"></h4>
+                    <p class="category">Ultimos prestamos</p>
+                </div>
+                <div class="content">
+                    <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
+                    <div class="footer">
+                        <div class="legend">
+                            <i class="fa fa-circle text-info"></i> Disponibles
+                            <i class="fa fa-circle text-danger"></i> Prestados
+                            <i class="fa fa-circle text-warning"></i> Inutiles
+                        </div>
+                        <hr>
+                        <hr />
+                        <div class="stats">
+                            <i class="fa fa-clock-o">Ultima sesion</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card" style="padding-left:10px; padding-top:20px;">
+                <h4 class="title"> Tareas efectuadas</h4>
+                <p class="category">Historial</p>
+                <div class="content">
+                    <div class="table-full-width">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        Firme un contrato para "¿A qué le temen los organizadores de la conferencia?"
+                                    </td>
+                                    <td class="td-actions text-right">
+                                        <button type="button" rel="tooltip" title="Ocultar" class="btn btn-info btn-simple btn-xs">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                        <button type="button" rel="tooltip" title="Eliminar" class="btn btn-danger btn-simple btn-xs">
+                                            <i class="fa fa-times"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Actividades recientes -->
+    <div class="row">
+        
+    </div>
+    <!-- Fin actividades recientes-->
+</div>
+
