@@ -7,6 +7,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Proyectores.Models;
+using System.Drawing;
+using System.IO;
 
 namespace Proyectores.Controllers
 {
@@ -52,7 +54,8 @@ namespace Proyectores.Controllers
 
         //
         // GET: /Manage/Index
-        public async Task<ActionResult> Index(ManageMessageId? message)
+        [Authorize]
+        public ActionResult Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Su contraseña se ha cambiado."
@@ -64,17 +67,47 @@ namespace Proyectores.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
-            var model = new IndexViewModel
+            var db = new ApplicationDbContext();
+            var model = db.Users.FirstOrDefault(x => x.Id == userId);
+           if(model.Foto_Perfil != null)
             {
-                HasPassword = HasPassword(),
-                PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
-                TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
-                Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
-            };
+                ViewBag.Imagen = "data:image/png;base64," + Convert.ToBase64String(model.Foto_Perfil, 0, model.Foto_Perfil.Length);
+            }
             return View(model);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(ApplicationUser model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            //Buscando usuario
+            ApplicationDbContext db = new ApplicationDbContext();
+            var userID = User.Identity.GetUserId();
+            var usuario = db.Users.FirstOrDefault(x => x.Id.Equals(userID));
 
+            usuario.Nombre = model.Nombre;
+            usuario.Apellidos = model.Apellidos;
+            usuario.Email = model.Email;
+            usuario.PhoneNumber = model.PhoneNumber;
+            //Verificando si hay una nueva imagen de perfil
+            if (Request.Files.Count > 0)
+            {
+                HttpPostedFileBase file = Request.Files[0];
+                if (file != null)
+                {
+                    usuario.Foto_Perfil = new byte[file.ContentLength];
+                    file.InputStream.Read(usuario.Foto_Perfil, 0, file.ContentLength);
+                }
+            }
+            var result = db.SaveChanges();
+            if(result > 0)
+                return RedirectToAction("Index");
+            return View(usuario);
+
+        }
         //
         // POST: /Manage/RemoveLogin
         [HttpPost]
@@ -243,7 +276,6 @@ namespace Proyectores.Controllers
             AddErrors(result);
             return View(model);
         }
-
         //
         // GET: /Manage/SetPassword
         public ActionResult SetPassword()

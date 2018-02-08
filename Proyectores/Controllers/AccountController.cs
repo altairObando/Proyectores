@@ -120,6 +120,7 @@ namespace Proyectores.Controllers
                         {
                             user.Foto_Perfil = new byte[file.ContentLength];
                             file.InputStream.Read(user.Foto_Perfil, 0, file.ContentLength);
+                            UserManager.Update(user);
                         }
                     }
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);

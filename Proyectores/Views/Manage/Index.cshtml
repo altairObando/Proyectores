@@ -1,87 +1,115 @@
-﻿@model Proyectores.Models.IndexViewModel
+﻿@model Proyectores.Models.ApplicationUser
 @{
-    ViewBag.Title = "Gestionar";
+    ViewBag.Title = "Información Personal";
 }
-
+@using System.Drawing;
 <h2>@ViewBag.Title.</h2>
+<div class="content">
+    @using (Html.BeginForm("Index", "Manage", FormMethod.Post, new { enctype = "multipart/form-data", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="header">
+                            <h4 class="title">Editar</h4>
+                        </div>
+                        <div class="content">
+                            <form>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(x => x.Nombre)
+                                            @Html.TextBoxFor(x=> x.Nombre, new {@class ="form-control", @required="True",@autofocus="True" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(x=> x.Apellidos)
+                                            @Html.TextBoxFor(x => x.Apellidos, new { @class = "form-control", @required = "True"})
+                                        </div>
+                                    </div>
+                                </div>
 
-<p class="text-success">@ViewBag.StatusMessage</p>
-<div>
-    <h4>Cambiar la configuración de la cuenta</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>Contraseña:</dt>
-        <dd>
-            [
-            @if (Model.HasPassword)
-            {
-                @Html.ActionLink("Cambiar la contraseña", "ChangePassword")
-            }
-            else
-            {
-                @Html.ActionLink("Crear", "SetPassword")
-            }
-            ]
-        </dd>
-        <dt>Inicios de sesión externos:</dt>
-        <dd>
-            @Model.Logins.Count [
-            @Html.ActionLink("Administrar", "ManageLogins") ]
-        </dd>
-        @*
-            Los números de teléfono se pueden usar como un segundo factor de comprobación en un sistema de autenticación en dos fases.
-             
-             Consulte <a href="http://go.microsoft.com/fwlink/?LinkId=403804">este artículo</a>
-                para obtener más información acerca de la configuración de esta aplicación ASP.NET para admitir la autenticación en dos fases con SMS.
-             
-             Quite la marca de comentario del siguiente bloque una vez haya configurado la autenticación en dos fases
-        *@
-        @*  
-            <dt>Número de teléfono:</dt>
-            <dd>
-                @(Model.PhoneNumber ?? "None")
-                @if (Model.PhoneNumber != null)
-                {
-                    <br />
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
-                    using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
-                    }
-                }
-                else
-                {
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
-                }
-            </dd>
-        *@
-        <dt>Autenticación de dos factores:</dt>
-        <dd>
-            <p>
-                No hay ningún proveedor de autenticación en dos fases configurado. Consulte <a href="http://go.microsoft.com/fwlink/?LinkId=403804">este artículo</a>
-                para obtener más información acerca de la configuración de esta aplicación ASP.NET para admitir la autenticación en dos fases.
-            </p>
-            @*@if (Model.TwoFactor)
-                {
-                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Habilitado
-                        <input type="submit" value="Deshabilitar" class="btn btn-link" />
-                        </text>
-                    }
-                }
-                else
-                {
-                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Deshabilitado
-                        <input type="submit" value="Habilitar" class="btn btn-link" />
-                        </text>
-                    }
-                }*@
-        </dd>
-    </dl>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(x => x.Email)
+                                            @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @required = "True" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(x => x.PhoneNumber)
+                                            @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", @required = "True" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label>Nueva Imagen de Perfil</label>
+                                    <input type="file" name="image" value="" onchange="ShowPreview(this)" hidden />
+                                </div>
+                                @Html.ActionLink("Cambiar la contraseña", "ChangePassword")
+                                <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button>
+                                <div class="clearfix"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-user">
+                        <div class="image">
+                            <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="..." />
+                        </div>
+                        <div class="content">
+                            <div class="author">
+                                <a href="#">
+                                    @if (Model.Foto_Perfil != null && Model.Foto_Perfil.Length > 0)
+                                            {
+                                                var base64 = Convert.ToBase64String(Model.Foto_Perfil);
+                                        var img_src = string.Format("data:image/jpg; base64, {0}", base64);
+                                        <img class="avatar border-gray" src="@img_src" alt="Foto del perfil" id="imgPrev" />
+                                    }
+                                    else
+                                    {
+                                        <img class="avatar border-gray" src="~/Content/img/faces/face-6.jpg" alt="..." />
+                                    }
+                                    <h4 class="title">
+                                        @Model.Nombre @Model.Apellidos<br />
+                                        <small>@Model.UserName</small>
+                                    </h4>
+                                </a>
+                            </div>
+                       <!--     <p class="description text-center">
+                                "Lamborghini Mercy <br>
+                                Your chick she so thirsty <br>
+                                I'm in that two seat Lambo"
+                            </p>
+                           -->
+                        </div>
+                        <hr>
+                        <div class="text-center">
+                            <button href="#" class="btn btn-simple"><i class="fa fa-facebook-square"></i></button>
+                            <button href="#" class="btn btn-simple"><i class="fa fa-twitter"></i></button>
+                            <button href="#" class="btn btn-simple"><i class="fa fa-google-plus-square"></i></button>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    }
 </div>
+<script type="text/javascript">
+    function ShowPreview(input) {
+        if (input.files && input.files[0]) {
+            var imageDir = new FileReader();
+            imageDir.onload = function (e) {
+                $('#imgPrev').attr('src', e.target.result);
+            }
+            imageDir.readAsDataURL(input.files[0]);
+        }
+    }
+</script>

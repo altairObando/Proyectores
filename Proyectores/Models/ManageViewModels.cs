@@ -24,7 +24,26 @@ namespace Proyectores.Models
     {
         public string Purpose { get; set; }
     }
+    public class UpdateViewModel
+    {
+        [Required]
+        [StringLength(25, ErrorMessage = "Longitud de cadena no valida"), MinLength(4)]
+        public string Nombre { get; set; }
 
+        [Required]
+        [StringLength(25, ErrorMessage = "Longitud de cadena no valida"), MinLength(4)]
+        public string Apellido { get; set; }
+
+        [Required]
+        [Phone]
+        [Display(Name = "Número de teléfono")]
+        public string Telefono { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [Display(Name ="Correo Electronico")]
+        public string Email { get; set; }
+    }
     public class SetPasswordViewModel
     {
         [Required]
