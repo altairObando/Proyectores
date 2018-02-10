@@ -168,8 +168,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DocentesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MarcasController.cs" />
+    <Compile Include="Controllers\ProyectorsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -225,6 +228,7 @@
     <Content Include="Content\img\favicon.ico" />
     <Content Include="Content\img\full-screen-image-3.jpg" />
     <Content Include="Content\img\loading-bubbles.svg" />
+    <Content Include="Content\img\marca.png" />
     <Content Include="Content\img\mask.png" />
     <Content Include="Content\img\new_logo.png" />
     <Content Include="Content\img\sidebar-1.jpg" />
@@ -336,9 +340,20 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Docentes\Create.cshtml" />
+    <Content Include="Views\Docentes\Delete.cshtml" />
+    <Content Include="Views\Docentes\Details.cshtml" />
+    <Content Include="Views\Docentes\Edit.cshtml" />
+    <Content Include="Views\Docentes\Index.cshtml" />
+    <Content Include="Views\Proyectors\Create.cshtml" />
+    <Content Include="Views\Proyectors\Delete.cshtml" />
+    <Content Include="Views\Proyectors\Details.cshtml" />
+    <Content Include="Views\Proyectors\Edit.cshtml" />
+    <Content Include="Views\Proyectors\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Marcas\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

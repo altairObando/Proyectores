@@ -17,7 +17,7 @@
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-signin", role = "form" }))
             {
                 @Html.AntiForgeryToken()
-                <h3 class="form-signin-heading">Welcome Back! Please Sign In</h3>
+                <h3 class="form-signin-heading">Bienvenido! Inicia Sesión</h3>
                 @Html.ValidationSummary()
                 <hr class="colorgraph"><br>
                 @Html.TextBoxFor(x => x.UserName, new {@class = "form-control", @placeholder = "Username",@required = "true", @autofocus = "true" })
