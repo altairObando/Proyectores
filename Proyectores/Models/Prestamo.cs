@@ -13,7 +13,8 @@ namespace Proyectores.Models
         public int id_prestamo { get; set; }
         public int id_proyector { get; set; }
         public int id_docente { get; set; }
-        public int id_responsable { get; set; }
+        public string id_responsable { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime fecha { get; set; }
         public bool? prestamo_anulado { get; set; }
         public bool? finalizado { get; set; }

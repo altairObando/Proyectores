@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Proyectores.Models.Devolucion>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Prestamo.id_prestamo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.hora)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.anulada)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Prestamo.id_prestamo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.hora)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.anulada)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id_devolucion }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id_devolucion }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id_devolucion })
+        </td>
+    </tr>
+}
+
+</table>

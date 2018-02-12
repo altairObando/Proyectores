@@ -1,0 +1,43 @@
+﻿@model Proyectores.Models.Devolucion
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Devolucion</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Prestamo.id_prestamo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prestamo.id_prestamo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.hora)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.hora)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.anulada)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.anulada)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_devolucion }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

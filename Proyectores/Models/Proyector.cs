@@ -6,19 +6,10 @@ using System.Web;
 
 namespace Proyectores.Models
 {
-    public class Marca
-    {
-        [Key]
-        public int id_marca { get; set; }
-        public string marca { get; set; }
-        public override string ToString()
-        {
-            return marca;
-        }
-        public virtual List<Proyector> Proyectores { get; set; }
-    }
+   
     public class Proyector
     {
+
         [Key]
         public int id_proyector { get; set; }
         public int id_marca { get; set; }

@@ -1,0 +1,75 @@
+﻿@model Proyectores.Models.Prestamo
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Prestamo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Proyector.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Proyector.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.id_docente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_docente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.id_responsable)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_responsable)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.prestamo_anulado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.prestamo_anulado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.finalizado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.finalizado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.activo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.activo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_prestamo }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

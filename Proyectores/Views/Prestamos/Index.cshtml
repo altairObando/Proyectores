@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Proyectores.Models.Prestamo>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Prestamos Efectuados</h2>
+
+<p>
+    @Html.ActionLink("Registrar Prestamo", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Proyector
+        </th>
+        <th>
+            Docente
+        </th>
+        <th>
+            Responsable
+        </th>
+        <th>
+            Fecha
+        </th>
+        <th>
+            Anulado
+        </th>
+        <th>
+            Finalizado
+        </th>
+        <th>Operaciones</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Proyector.nombre)
+        </td>
+        <td>
+            @item.Docente.Especialidad.nombre.Split(' ').FirstOrDefault()
+            @Html.DisplayFor(modelItem => item.Docente.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Responsable.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fecha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.prestamo_anulado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.finalizado)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id_prestamo }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id_prestamo }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id_prestamo })
+        </td>
+    </tr>
+}
+
+</table>

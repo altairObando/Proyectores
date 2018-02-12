@@ -22,7 +22,7 @@ namespace Proyectores.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -34,9 +34,9 @@ namespace Proyectores.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -113,17 +113,17 @@ namespace Proyectores.Controllers
                 if (result.Succeeded)
                 {
                     //Crear conversion para guardar foto
-                    if(Request.Files.Count > 0)
+                    if (Request.Files.Count > 0)
                     {
                         HttpPostedFileBase file = Request.Files[0];
-                        if(file != null)
+                        if (file != null)
                         {
                             user.Foto_Perfil = new byte[file.ContentLength];
                             file.InputStream.Read(user.Foto_Perfil, 0, file.ContentLength);
                             UserManager.Update(user);
                         }
                     }
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
@@ -233,8 +233,8 @@ namespace Proyectores.Controllers
         }
         //
         // POST: /Account/LogOff
-        
-//        [ValidateAntiForgeryToken]
+
+        //        [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);

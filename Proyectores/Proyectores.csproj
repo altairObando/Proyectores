@@ -168,11 +168,16 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DepartamentosController.cs" />
+    <Compile Include="Controllers\DevolucionesController.cs" />
     <Compile Include="Controllers\DocentesController.cs" />
+    <Compile Include="Controllers\EspecialidadesController.cs" />
+    <Compile Include="Controllers\EstadosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MarcasController.cs" />
-    <Compile Include="Controllers\ProyectorsController.cs" />
+    <Compile Include="Controllers\PrestamosController.cs" />
+    <Compile Include="Controllers\ProyectoresController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -188,6 +193,14 @@
     <Compile Include="Migrations\201802070137410_adding-data-anotations.Designer.cs">
       <DependentUpon>201802070137410_adding-data-anotations.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802101901524_marcas_edit.cs" />
+    <Compile Include="Migrations\201802101901524_marcas_edit.Designer.cs">
+      <DependentUpon>201802101901524_marcas_edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802102049080_201802101901524_marcas_edit.cs" />
+    <Compile Include="Migrations\201802102049080_201802101901524_marcas_edit.Designer.cs">
+      <DependentUpon>201802102049080_201802101901524_marcas_edit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Departamento.cs" />
@@ -196,6 +209,7 @@
     <Compile Include="Models\Especialidad.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Marca.cs" />
     <Compile Include="Models\Prestamo.cs" />
     <Compile Include="Models\Proyector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -240,6 +254,47 @@
     <Content Include="Content\light-bootstrap-dashboard.css" />
     <Content Include="Content\pe-icon-7-stroke.css" />
     <Content Include="Content\roboto.css" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -299,10 +354,14 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery-1.12.4.intellisense.js" />
+    <Content Include="Scripts\jquery-1.12.4.js" />
+    <Content Include="Scripts\jquery-1.12.4.min.js" />
+    <Content Include="Scripts\jquery-1.12.4.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery.3.2.1.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -345,15 +404,44 @@
     <Content Include="Views\Docentes\Details.cshtml" />
     <Content Include="Views\Docentes\Edit.cshtml" />
     <Content Include="Views\Docentes\Index.cshtml" />
-    <Content Include="Views\Proyectors\Create.cshtml" />
-    <Content Include="Views\Proyectors\Delete.cshtml" />
-    <Content Include="Views\Proyectors\Details.cshtml" />
-    <Content Include="Views\Proyectors\Edit.cshtml" />
-    <Content Include="Views\Proyectors\Index.cshtml" />
+    <Content Include="Views\Departamentos\Create.cshtml" />
+    <Content Include="Views\Departamentos\Delete.cshtml" />
+    <Content Include="Views\Departamentos\Details.cshtml" />
+    <Content Include="Views\Departamentos\Edit.cshtml" />
+    <Content Include="Views\Departamentos\Index.cshtml" />
+    <Content Include="Views\Devoluciones\Create.cshtml" />
+    <Content Include="Views\Devoluciones\Delete.cshtml" />
+    <Content Include="Views\Devoluciones\Details.cshtml" />
+    <Content Include="Views\Devoluciones\Edit.cshtml" />
+    <Content Include="Views\Devoluciones\Index.cshtml" />
+    <Content Include="Views\Especialidades\Create.cshtml" />
+    <Content Include="Views\Especialidades\Delete.cshtml" />
+    <Content Include="Views\Especialidades\Details.cshtml" />
+    <Content Include="Views\Especialidades\Edit.cshtml" />
+    <Content Include="Views\Especialidades\Index.cshtml" />
+    <Content Include="Views\Estados\Create.cshtml" />
+    <Content Include="Views\Estados\Delete.cshtml" />
+    <Content Include="Views\Estados\Details.cshtml" />
+    <Content Include="Views\Estados\Edit.cshtml" />
+    <Content Include="Views\Estados\Index.cshtml" />
+    <Content Include="Views\Proyectores\Create.cshtml" />
+    <Content Include="Views\Proyectores\Delete.cshtml" />
+    <Content Include="Views\Proyectores\Details.cshtml" />
+    <Content Include="Views\Proyectores\Edit.cshtml" />
+    <Content Include="Views\Proyectores\Index.cshtml" />
+    <Content Include="Views\Marcas\Create.cshtml" />
+    <Content Include="Views\Marcas\Delete.cshtml" />
+    <Content Include="Views\Marcas\Details.cshtml" />
+    <Content Include="Views\Marcas\Edit.cshtml" />
+    <Content Include="Views\Marcas\Index.cshtml" />
+    <Content Include="Views\Prestamos\Create.cshtml" />
+    <Content Include="Views\Prestamos\Delete.cshtml" />
+    <Content Include="Views\Prestamos\Details.cshtml" />
+    <Content Include="Views\Prestamos\Edit.cshtml" />
+    <Content Include="Views\Prestamos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Marcas\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -361,7 +449,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201802062235406_add-Models.resx">
@@ -372,6 +459,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802070137410_adding-data-anotations.resx">
       <DependentUpon>201802070137410_adding-data-anotations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802101901524_marcas_edit.resx">
+      <DependentUpon>201802101901524_marcas_edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802102049080_201802101901524_marcas_edit.resx">
+      <DependentUpon>201802102049080_201802101901524_marcas_edit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

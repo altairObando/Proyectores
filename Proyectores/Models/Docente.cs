@@ -20,5 +20,9 @@ namespace Proyectores.Models
         public virtual Especialidad Especialidad { get; set; }
         public virtual Departamento Departamento { get; set; }
         public virtual List<Prestamo> Prestamos { get; set; }
+        public override string ToString()
+        {
+            return Nombre + " " + Apellido;
+        }
     }
 }

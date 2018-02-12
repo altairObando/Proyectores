@@ -8,6 +8,9 @@
     <title>@ViewBag.Title - SPP</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/jquery-1.12.4.js"></script>
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
     
 </head>
 <body>
@@ -43,13 +46,13 @@
                     </li>
                     <!--DEPARTAMENTOS-->
                     <li>
-                        <a href="@Url.Action("Index","Departamento")">
+                        <a href="@Url.Action("Index","Departamentos")">
                             <i class="pe-7s-world"></i>
                             <p>Departamentos</p>
                         </a>
                     </li>
                     <li>
-                        <a href="@Url.Action("Index","Proyector")">
+                        <a href="@Url.Action("Index","Proyectores")">
                             <i class="pe-7s-display1"></i>
                             <p>Proyectores</p>
                         </a>
