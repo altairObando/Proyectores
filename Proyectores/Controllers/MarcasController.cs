@@ -40,7 +40,6 @@ namespace Proyectores.Controllers
         {
             return View();
         }
-
         // POST: Marcas/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -48,10 +47,10 @@ namespace Proyectores.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id_marca,marca")] Marca marca)
         {
-            var hhhh = Request.Form["marca"];
-            marca = new Marca { marca = hhhh };
-            if (ModelState.IsValid)
+            string resultPost = Request.Form["marca"];
+            if (!string.IsNullOrWhiteSpace(resultPost))
             {
+                marca = new Marca { marca = resultPost };
                 db.Marca.Add(marca);
                 db.SaveChanges();
                 return RedirectToAction("Index");
