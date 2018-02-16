@@ -26,7 +26,7 @@ namespace Proyectores.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("Proyectores.Properties.Settings.Conexion", throwIfV1Schema: false)
+            : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
         public static ApplicationDbContext Create()

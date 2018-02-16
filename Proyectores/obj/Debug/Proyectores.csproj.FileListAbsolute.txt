@@ -178,12 +178,6 @@ C:\Users\altair\Source\Repos\Proyectores\Proyectores\bin\es\Microsoft.Owin.Secur
 C:\Users\altair\Source\Repos\Proyectores\Proyectores\bin\es\Microsoft.Owin.Security.Twitter.resources.dll
 C:\Users\altair\Source\Repos\Proyectores\Proyectores\bin\es\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
 C:\Users\altair\Source\Repos\Proyectores\Proyectores\obj\Debug\Proyectores.csprojResolveAssemblyReference.cache
-C:\Users\altair\Source\Repos\Proyectores\Proyectores\obj\Debug\Proyectores.Migrations.addModels.resources
-C:\Users\altair\Source\Repos\Proyectores\Proyectores\obj\Debug\Proyectores.Migrations.addDbSets.resources
-C:\Users\altair\Source\Repos\Proyectores\Proyectores\obj\Debug\Proyectores.Migrations.addingdataanotations.resources
-C:\Users\altair\Source\Repos\Proyectores\Proyectores\obj\Debug\Proyectores.Migrations.marcas_edit.resources
-C:\Users\altair\Source\Repos\Proyectores\Proyectores\obj\Debug\Proyectores.Migrations._201802101901524_marcas_edit.resources
-C:\Users\altair\Source\Repos\Proyectores\Proyectores\obj\Debug\Proyectores.csproj.GenerateResource.Cache
 C:\Users\altair\Source\Repos\Proyectores\Proyectores\obj\Debug\Proyectores.dll
 C:\Users\altair\Source\Repos\Proyectores\Proyectores\obj\Debug\Proyectores.pdb
 C:\Users\MLA01\Source\Repos\Proyectores\Proyectores\bin\roslyn\csc.exe
@@ -280,3 +274,5 @@ C:\Users\MLA01\Source\Repos\Proyectores\Proyectores\obj\Debug\Proyectores.Migrat
 C:\Users\MLA01\Source\Repos\Proyectores\Proyectores\obj\Debug\Proyectores.csproj.GenerateResource.Cache
 C:\Users\MLA01\Source\Repos\Proyectores\Proyectores\obj\Debug\Proyectores.dll
 C:\Users\MLA01\Source\Repos\Proyectores\Proyectores\obj\Debug\Proyectores.pdb
+C:\Users\altair\Source\Repos\Proyectores\Proyectores\obj\Debug\Proyectores.Migrations.basic.resources
+C:\Users\altair\Source\Repos\Proyectores\Proyectores\obj\Debug\Proyectores.csproj.GenerateResource.Cache

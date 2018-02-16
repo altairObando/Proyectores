@@ -181,25 +181,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201802062235406_add-Models.cs" />
-    <Compile Include="Migrations\201802062235406_add-Models.Designer.cs">
-      <DependentUpon>201802062235406_add-Models.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802062242240_add-DbSets.cs" />
-    <Compile Include="Migrations\201802062242240_add-DbSets.Designer.cs">
-      <DependentUpon>201802062242240_add-DbSets.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802070137410_adding-data-anotations.cs" />
-    <Compile Include="Migrations\201802070137410_adding-data-anotations.Designer.cs">
-      <DependentUpon>201802070137410_adding-data-anotations.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802101901524_marcas_edit.cs" />
-    <Compile Include="Migrations\201802101901524_marcas_edit.Designer.cs">
-      <DependentUpon>201802101901524_marcas_edit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802102049080_201802101901524_marcas_edit.cs" />
-    <Compile Include="Migrations\201802102049080_201802101901524_marcas_edit.Designer.cs">
-      <DependentUpon>201802102049080_201802101901524_marcas_edit.cs</DependentUpon>
+    <Compile Include="Migrations\201802161921525_basic.cs" />
+    <Compile Include="Migrations\201802161921525_basic.Designer.cs">
+      <DependentUpon>201802161921525_basic.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -221,6 +205,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\aspnet-Proyectores-20180206042459.mdf" />
+    <Content Include="App_Data\aspnet-Proyectores-20180206042459_log.ldf">
+      <DependentUpon>aspnet-Proyectores-20180206042459.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\animate.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -441,9 +429,7 @@
     <Content Include="Views\Prestamos\Index.cshtml" />
     <Content Include="Views\Marcas\_crear.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -452,20 +438,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201802062235406_add-Models.resx">
-      <DependentUpon>201802062235406_add-Models.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802062242240_add-DbSets.resx">
-      <DependentUpon>201802062242240_add-DbSets.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802070137410_adding-data-anotations.resx">
-      <DependentUpon>201802070137410_adding-data-anotations.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802101901524_marcas_edit.resx">
-      <DependentUpon>201802101901524_marcas_edit.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802102049080_201802101901524_marcas_edit.resx">
-      <DependentUpon>201802102049080_201802101901524_marcas_edit.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201802161921525_basic.resx">
+      <DependentUpon>201802161921525_basic.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
