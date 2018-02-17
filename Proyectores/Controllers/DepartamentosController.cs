@@ -19,7 +19,12 @@ namespace Proyectores.Controllers
         {
             return View(db.Departamentos.ToList());
         }
-
+        public ActionResult getDeptos()
+        {
+            List<Departamento> lista = db.Departamentos.ToList();
+            return Json(new { data = lista }, JsonRequestBehavior.AllowGet);
+        }
+        
         // GET: Departamentos/Details/5
         public ActionResult Details(int? id)
         {
@@ -36,26 +41,30 @@ namespace Proyectores.Controllers
         }
 
         // GET: Departamentos/Create
-        public ActionResult Create()
+        [HttpGet]
+        public ActionResult Create(int id=0)
         {
-            return View();
+            if (id == 0)
+                return View(new Departamento());
+            else
+                return View(db.Departamentos.Where(x => x.id_departamento == id).FirstOrDefault<Departamento>());
         }
-
-        // POST: Departamentos/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id_departamento,nombre,mision,vision,historia,ubicacion,organizacion")] Departamento departamento)
         {
-            if (ModelState.IsValid)
+            if (departamento.id_departamento == 0)
             {
                 db.Departamentos.Add(departamento);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Json(new { succes = true, message = "Agregado Correctamente" }, JsonRequestBehavior.AllowGet);
             }
-
-            return View(departamento);
+            else
+            {
+                db.Entry(departamento).State = EntityState.Modified;
+                db.SaveChanges();
+                return Json(new { succes = true, message = "Actualizado Correctamente" }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         // GET: Departamentos/Edit/5
