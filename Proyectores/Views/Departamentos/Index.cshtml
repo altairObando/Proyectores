@@ -88,6 +88,7 @@
                 data: $(form).serialize(),
                 success: function (data) {
                     if (data.success) {
+
                         Popup.dialog('close');
                         dataTable.ajax.reload();
                         $.notify(data.message, {
