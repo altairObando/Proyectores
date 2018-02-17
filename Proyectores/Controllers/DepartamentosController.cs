@@ -19,12 +19,48 @@ namespace Proyectores.Controllers
         {
             return View(db.Departamentos.ToList());
         }
+        [HttpGet]
+        public ActionResult AddOrEdit(int id = 0)
+        {
+            if (id == 0)
+                return View(new Departamento());
+            else
+            {
+                
+               return View(db.Departamentos.Where(x => x.id_departamento == id).FirstOrDefault<Departamento>());
+            }
+        }
+
+        [HttpPost]
+        public ActionResult AddOrEdit(Departamento emp)
+        {
+           if (emp.id_departamento == 0)
+                {
+                    db.Departamentos.Add(emp);
+                    db.SaveChanges();
+                    return Json(new { success = true, message = "Saved Successfully" }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    db.Entry(emp).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return Json(new { success = true, message = "Updated Successfully" }, JsonRequestBehavior.AllowGet);
+                }
+           
+        }
         public ActionResult getDeptos()
         {
             List<Departamento> lista = db.Departamentos.ToList();
             return Json(new { data = lista }, JsonRequestBehavior.AllowGet);
         }
-        
+        [HttpPost]
+        public ActionResult Borrar(int id)
+        {
+            Departamento d = db.Departamentos.Where(x => x.id_departamento == id).FirstOrDefault();
+            db.Departamentos.Remove(d);
+            db.SaveChanges();
+            return Json(new { success = true, message = "Borrado Completamente" }, JsonRequestBehavior.AllowGet);
+        }
         // GET: Departamentos/Details/5
         public ActionResult Details(int? id)
         {
