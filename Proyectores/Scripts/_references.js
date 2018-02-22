@@ -45,6 +45,7 @@
 /// <reference path="jquery.validate.unobtrusive.js" />
 /// <reference path="jquery-1.12.4.js" />
 /// <reference path="jquery-1.12.4.min.js" />
+/// <reference path="jquery-notify.min.js" />
 /// <reference path="jquery-ui.js" />
 /// <reference path="jquery-ui-1.12.1.js" />
 /// <reference path="jquery-ui-1.12.1.min.js" />

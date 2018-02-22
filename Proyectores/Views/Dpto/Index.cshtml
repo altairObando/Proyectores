@@ -1,0 +1,133 @@
+﻿@{
+    ViewBag.Title = "Departamentos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<p>
+    <a class="btn btn-success" style="margin-bottom:10px" onclick="PopupForm('@Url.Action("Create","Dpto")')"><i class="fa fa-plus"></i> Agregar</a>
+</p>
+<table class="table table-condensed table-responsive table-striped" id="tblDepartamentos">
+    <thead>
+        <tr>
+            <th>
+                Departamento
+            </th>
+            <th>
+                Mision
+            </th>
+            <th>
+                Vision
+            </th>
+            <th>
+                Historia
+            </th>
+            <th>
+                Ubicacion
+            </th>
+            <th>
+                Organizacion
+            </th>
+            <th>Opciones</th>
+        </tr>
+    </thead>
+</table>
+@section scripts
+{
+<script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/DataTables/dataTables.jqueryui.min.js"></script>
+<script>
+    var Popup, dataTable;
+    $(document).ready(function () {
+        dataTable = $("#tblDepartamentos").DataTable({
+            "ajax": {
+                "url": "/Dpto/getDepartamentos",
+                "type": "GET",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "nombre" },
+                { "data": "mision" },
+                { "data": "vision" },
+                { "data": "historia" },
+                { "data": "ubicacion" },
+                { "data": "organizacion" },
+                { "data": "id_departamento" , "render": function (data) {
+                    return "<a class='btn btn-info btn-sm' onclick=PopupForm('@Url.Action("Create","Dpto")/" + data + "')><i class='fa fa-pencil'></i> Editar</a><a class='btn btn-danger btn-sm' style='margin-left:5px' onclick=Delete("+data+")><i class='fa fa-trash'></i> Delete</a>";
+                },
+                    "orderable": false,
+                    "searcheable": false,
+                    "width": "150px"
+                }
+            ],
+            "language": {
+                "emptyTable": "No hay departamentos en el sistema",
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+            }
+        });
+    });
+    function PopupForm(url) {
+        var formDiv = $('<div/>');
+        $.get(url)
+        .done(function (response) {
+            formDiv.html(response);
+
+            Popup = formDiv.dialog({
+                autoOpen: true,
+                resizable: false,
+                title: 'Datos de Departamento',
+                height: 600,
+                width: 600,
+                close: function () {
+                    Popup.dialog('destroy').remove();
+                }
+
+            });
+        });
+    }
+    function SubmitForm(form) {
+        $.validator.unobtrusive.parse(form);
+        if ($(form).valid()) {
+            $.ajax({
+                type: "POST",
+                url: form.action,
+                data: $(form).serialize(),
+                success: function (data) {
+                    if (data.success) {
+                        Popup.dialog('close');
+                        dataTable.ajax.reload();
+
+                        $.notify(data.message, {
+                            globalPosition: "top center",
+                            className: "success"
+                        })
+
+                    }
+                }
+            });
+        }
+        return false;
+    }
+    function Delete(id) {
+        if (confirm('Confirme Eliminación')) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Delete","Dpto")/' + id,
+                success: function (data) {
+                    if (data.success) {
+                        dataTable.ajax.reload();
+
+                        $.notify(data.message, {
+                            globalPosition: "top center",
+                            className: "success"
+                        })
+
+                    }
+                }
+
+            });
+        }
+    }
+</script>
+}
+
