@@ -16,30 +16,29 @@ namespace Proyectores.Models
         [DataType(DataType.Text)]
         [StringLength(100, MinimumLength = 7)]
         [Display (Name ="Departamento")]        
-       // public string ConfirmNewPassword { get; set; } ----//mae esto estaba acá no se si sirve de algo... confirmame...y dime para que---
         public string nombre { get; set; }
-
-        [Required(ErrorMessage = " Complete!!! Misión del Departamento?")]
+        //Lo unico requerido era que se guardara el nombre del departamento, en la bd anterior
+        //[Required(ErrorMessage = " Complete!!! Misión del Departamento?")]
         [DataType(DataType.Text)]
         [Display(Name = "Misión")]
         public string mision { get; set; }
 
-        [Required(ErrorMessage = " Complete!!! Visión del Departamento?")]
+        //[Required(ErrorMessage = " Complete!!! Visión del Departamento?")]
         [DataType(DataType.Text)]
         [Display(Name = "Visión")]
         public string vision { get; set; }
 
-        [Required(ErrorMessage = " Complete!!! Historia del Departamento?")]
+        //[Required(ErrorMessage = " Complete!!! Historia del Departamento?")]
         [DataType(DataType.Text)]
         [Display(Name = "Historia")]
         public string historia { get; set; }
 
-        [Required(ErrorMessage = " Complete!!! Ubicación del Departamento?")]
+        //[Required(ErrorMessage = " Complete!!! Ubicación del Departamento?")]
         [DataType(DataType.Text)]
         [Display(Name = "Ubicación")]
         public string ubicacion { get; set; }
 
-        [Required(ErrorMessage = " Complete!!! Organización del Departamento?")]
+        //[Required(ErrorMessage = " Complete!!! Organización del Departamento?")]
         [DataType(DataType.Text)]
         [Display(Name = "Organización")]        
         public string organizacion { get; set; }
