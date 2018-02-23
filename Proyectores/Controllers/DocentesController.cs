@@ -17,10 +17,15 @@ namespace Proyectores.Controllers
         // GET: Docentes
         public ActionResult Index()
         {
-            var docentes = db.Docentes.Include(d => d.Departamento).Include(d => d.Especialidad);
-            return View(docentes.ToList());
+            
+            return View();
         }
-
+        [HttpGet]
+        public ActionResult getDocentes()
+        {
+            List<Docente> lista = db.Docentes.Include(d => d.Departamento).Include(d => d.Especialidad).ToList();
+            return Json(new { data = lista }, JsonRequestBehavior.AllowGet);
+        }
         // GET: Docentes/Details/5
         public ActionResult Details(int? id)
         {
@@ -37,11 +42,16 @@ namespace Proyectores.Controllers
         }
 
         // GET: Docentes/Create
-        public ActionResult Create()
+        public ActionResult Create(int id=0)
         {
             ViewBag.id_departamento = new SelectList(db.Departamentos, "id_departamento", "nombre");
             ViewBag.id_especialidad = new SelectList(db.Especialidad, "id_especialidad", "nombre");
-            return View();
+            if (id == 0)
+                return View(new Docente());
+            else
+            {
+                return View(db.Docentes.FirstOrDefault(x=> x.DocenteId == id));
+            }
         }
 
         // POST: Docentes/Create
@@ -53,11 +63,18 @@ namespace Proyectores.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Docentes.Add(docente);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if(docente.DocenteId == 0)
+                {
+                    db.Docentes.Add(docente);
+                    db.SaveChanges();
+                    return Json(new { success = true, message ="Creado Correctamente"}, JsonRequestBehavior.AllowGet);
+                }else
+                {
+                    db.Entry(docente).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return Json(new { success = true, message = "Actualizado Correctamente" }, JsonRequestBehavior.AllowGet);
+                }
             }
-
             ViewBag.id_departamento = new SelectList(db.Departamentos, "id_departamento", "nombre", docente.id_departamento);
             ViewBag.id_especialidad = new SelectList(db.Especialidad, "id_especialidad", "nombre", docente.id_especialidad);
             return View(docente);

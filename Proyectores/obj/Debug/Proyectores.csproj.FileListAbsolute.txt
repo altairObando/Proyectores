@@ -366,3 +366,4 @@ C:\Users\Frank J Castell\Source\Repos\Proyectores\Proyectores\obj\Debug\Proyecto
 C:\Users\Frank J Castell\Source\Repos\Proyectores\Proyectores\obj\Debug\Proyectores.csproj.GenerateResource.Cache
 C:\Users\Frank J Castell\Source\Repos\Proyectores\Proyectores\obj\Debug\Proyectores.dll
 C:\Users\Frank J Castell\Source\Repos\Proyectores\Proyectores\obj\Debug\Proyectores.pdb
+C:\Users\altair\Source\Repos\Proyectores\Proyectores\obj\Debug\Proyectores.Migrations.dpto_validaciones.resources

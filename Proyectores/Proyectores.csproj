@@ -185,6 +185,10 @@
     <Compile Include="Migrations\201802161921525_basic.Designer.cs">
       <DependentUpon>201802161921525_basic.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802230023294_dpto_validaciones.cs" />
+    <Compile Include="Migrations\201802230023294_dpto_validaciones.Designer.cs">
+      <DependentUpon>201802230023294_dpto_validaciones.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Departamento.cs" />
@@ -679,6 +683,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201802161921525_basic.resx">
       <DependentUpon>201802161921525_basic.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802230023294_dpto_validaciones.resx">
+      <DependentUpon>201802230023294_dpto_validaciones.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
