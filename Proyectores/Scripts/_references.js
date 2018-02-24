@@ -2,6 +2,7 @@
 /// <reference path="bootstrap.js" />
 /// <reference path="bootstrap-notify.js" />
 /// <reference path="bootstrap-select.js" />
+/// <reference path="crud.js" />
 /// <reference path="datatables/autofill.bootstrap.min.js" />
 /// <reference path="datatables/autofill.bootstrap4.min.js" />
 /// <reference path="datatables/autofill.foundation.min.js" />

@@ -10,6 +10,7 @@ using Proyectores.Models;
 
 namespace Proyectores.Controllers
 {
+    [Authorize]
     public class DocentesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -23,7 +24,7 @@ namespace Proyectores.Controllers
         [HttpGet]
         public ActionResult getDocentes()
         {
-            List<Docente> lista = db.Docentes.Include(d => d.Departamento).Include(d => d.Especialidad).ToList();
+            List<Docente> lista = db.Docentes.Include(d => d.Departamento).Include(d => d.Especialidad).Where(x=> x.Activo).ToList();
             return Json(new { data = lista }, JsonRequestBehavior.AllowGet);
         }
         // GET: Docentes/Details/5
@@ -65,6 +66,7 @@ namespace Proyectores.Controllers
             {
                 if(docente.DocenteId == 0)
                 {
+                    docente.Activo = true;
                     db.Docentes.Add(docente);
                     db.SaveChanges();
                     return Json(new { success = true, message ="Creado Correctamente"}, JsonRequestBehavior.AllowGet);
@@ -80,65 +82,18 @@ namespace Proyectores.Controllers
             return View(docente);
         }
 
-        // GET: Docentes/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Docente docente = db.Docentes.Find(id);
-            if (docente == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.id_departamento = new SelectList(db.Departamentos, "id_departamento", "nombre", docente.id_departamento);
-            ViewBag.id_especialidad = new SelectList(db.Especialidad, "id_especialidad", "nombre", docente.id_especialidad);
-            return View(docente);
-        }
-
-        // POST: Docentes/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DocenteId,Nombre,Apellido,Telefono,Email,id_especialidad,id_departamento")] Docente docente)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(docente).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.id_departamento = new SelectList(db.Departamentos, "id_departamento", "nombre", docente.id_departamento);
-            ViewBag.id_especialidad = new SelectList(db.Especialidad, "id_especialidad", "nombre", docente.id_especialidad);
-            return View(docente);
-        }
-
-        // GET: Docentes/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Docente docente = db.Docentes.Find(id);
-            if (docente == null)
-            {
-                return HttpNotFound();
-            }
-            return View(docente);
-        }
-
-        // POST: Docentes/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            int result = 0;
             Docente docente = db.Docentes.Find(id);
-            db.Docentes.Remove(docente);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            docente.Activo = false;
+            db.Entry(docente).State = EntityState.Modified;
+            result = db.SaveChanges();
+            if (result > 0)
+                return Json(new { success = true, message = "Eliminado correctamente" }, JsonRequestBehavior.AllowGet);
+            else
+                return Json(new {success = false, message="No se ha eliminado el registro" }, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

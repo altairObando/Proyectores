@@ -13,6 +13,7 @@ namespace Proyectores.Models
         public string Apellido { get; set; }
         public string Telefono { get; set; }
         public string Email { get; set; }
+        public bool Activo { get; set; }
         //Llaves Foraneas
         public int id_especialidad { get; set; }    
         public int id_departamento { get; set; }

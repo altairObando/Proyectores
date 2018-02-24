@@ -189,6 +189,10 @@
     <Compile Include="Migrations\201802230023294_dpto_validaciones.Designer.cs">
       <DependentUpon>201802230023294_dpto_validaciones.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802230431254_docente_logical.cs" />
+    <Compile Include="Migrations\201802230431254_docente_logical.Designer.cs">
+      <DependentUpon>201802230431254_docente_logical.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Departamento.cs" />
@@ -509,6 +513,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
+    <Content Include="Scripts\crud.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap4.js" />
@@ -657,20 +662,16 @@
     <Content Include="Views\Proyectores\Details.cshtml" />
     <Content Include="Views\Proyectores\Edit.cshtml" />
     <Content Include="Views\Proyectores\Index.cshtml" />
-    <Content Include="Views\Marcas\Create.cshtml" />
-    <Content Include="Views\Marcas\Delete.cshtml" />
-    <Content Include="Views\Marcas\Details.cshtml" />
-    <Content Include="Views\Marcas\Edit.cshtml" />
     <Content Include="Views\Marcas\Index.cshtml" />
     <Content Include="Views\Prestamos\Create.cshtml" />
     <Content Include="Views\Prestamos\Delete.cshtml" />
     <Content Include="Views\Prestamos\Details.cshtml" />
     <Content Include="Views\Prestamos\Edit.cshtml" />
     <Content Include="Views\Prestamos\Index.cshtml" />
-    <Content Include="Views\Marcas\_crear.cshtml" />
     <Content Include="Views\Dpto\Create.cshtml" />
     <Content Include="Views\Dpto\Index.cshtml" />
     <Content Include="Scripts\Spanish.json" />
+    <Content Include="Views\Marcas\Crear.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -686,6 +687,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802230023294_dpto_validaciones.resx">
       <DependentUpon>201802230023294_dpto_validaciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802230431254_docente_logical.resx">
+      <DependentUpon>201802230431254_docente_logical.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

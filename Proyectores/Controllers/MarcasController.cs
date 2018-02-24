@@ -17,105 +17,56 @@ namespace Proyectores.Controllers
         // GET: Marcas
         public ActionResult Index()
         {
-            return View(db.Marca.ToList());
-        }
-
-        // GET: Marcas/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Marca marca = db.Marca.Find(id);
-            if (marca == null)
-            {
-                return HttpNotFound();
-            }
-            return View(marca);
-        }
-
-        // GET: Marcas/Create
-        public ActionResult Create()
-        {
             return View();
         }
-        // POST: Marcas/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id_marca,marca")] Marca marca)
+        [HttpGet]
+        public ActionResult getMarcas()
         {
-            string resultPost = Request.Form["marca"];
-            if (!string.IsNullOrWhiteSpace(resultPost))
+            List<Marca> lista = db.Marca.ToList();
+            return Json(new { data = lista }, JsonRequestBehavior.AllowGet);
+        }   
+        
+        [HttpGet]
+        public ActionResult Crear(int id = 0)
+        {
+            if (id == 0)
+                return View(new Marca());
+            else
             {
-                marca = new Marca { marca = resultPost };
+                var marca = db.Marca.FirstOrDefault(x => x.id_marca == id);
+                return Json(new {success = true, id_marca = marca.id_marca, marca = marca.marca }, JsonRequestBehavior.AllowGet);
+            }
+        }    
+        [HttpPost]
+        public ActionResult Crear([Bind(Include ="id_marca, marca")]Marca marca)
+        {
+            int id = int.Parse(Request.Form["id_marca"]);
+            string m = Request.Form["marca"];
+            marca = new Marca { id_marca = id, marca = m };
+            if (marca.id_marca == 0)
+            {
                 db.Marca.Add(marca);
                 db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(marca);
-        }
-
-        // GET: Marcas/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Marca marca = db.Marca.Find(id);
-            if (marca == null)
-            {
-                return HttpNotFound();
-            }
-            return View(marca);
-        }
-
-        // POST: Marcas/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id_marca,marca")] Marca marca)
-        {
-            if (ModelState.IsValid)
+                return Json(new { success = true, message = "Marca Registrada Correctamente" }, JsonRequestBehavior.AllowGet);
+            }else
             {
                 db.Entry(marca).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Json(new { success = true, message = "Marca Actualizada Correctamente" }, JsonRequestBehavior.AllowGet);
             }
-            return View(marca);
         }
-
-        // GET: Marcas/Delete/5
-        public ActionResult Delete(int? id)
+        [HttpPost]
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Marca marca = db.Marca.Find(id);
-            if (marca == null)
-            {
-                return HttpNotFound();
-            }
-            return View(marca);
+            int result = 0;
+            var m = db.Marca.FirstOrDefault(x => x.id_marca == id);
+            db.Marca.Remove(m);
+            result = db.SaveChanges();
+            if(result > 0)
+                return Json(new { success = true, message = "Marca Eliminada Correctamente" }, JsonRequestBehavior.AllowGet);
+            else
+                return Json(new { success = false, message = "No se ha eliminado" }, JsonRequestBehavior.AllowGet);
         }
-
-        // POST: Marcas/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Marca marca = db.Marca.Find(id);
-            db.Marca.Remove(marca);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

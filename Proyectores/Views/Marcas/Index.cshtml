@@ -1,36 +1,162 @@
-﻿@model IEnumerable<Proyectores.Models.Marca>
-
+﻿@using Proyectores.Models;
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Marcas";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="header">
+                    <h4 class="title"></h4>
+                    <p>Registrar nueva marca.</p>
+                </div>
+                <div class="content" id="partial">
+                    @Html.Partial("Crear", new Marca())
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="header">
+                    <h4 class="title"></h4>
+                    <p>Marcas en el sistema.</p>
+                </div>
+                <div class="content">
+                    <table class="table table-responsive table-hover" id="tableMarcas">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Marca
+                                </th>
+                                <th>Opciones Registro</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts
+{
+<script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/DataTables/dataTables.bootstrap.min.js"></script>
+<script>
+    var Popup, dataTable;
+    $(document).ready(function () {
+        dataTable = $("#tableMarcas").DataTable({
+            "ajax": {
+                "url": "/Marcas/getMarcas",
+                "type": "GET",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "marca" },
+                {
+                    "data": "id_marca", "render": function (data) {
+                        return "<a href='#' onclick=Editar('@Url.Action("Crear","Marcas")/" + data + "')><i class='fa fa-pencil'></i> Editar </a> |<a href='#' style='margin-left:1px' onclick=Delete('@Url.Action("Delete","Marcas")/" + data + "')><i class='fa fa-trash'></i> Borrar</a>";
+                    },
+                    "orderable": false,
+                    "searcheable": false,
+                    "width": "130px"
+                    }
+            ],
+            "language": {
+                "lengthMenu": "Mostrar _MENU_ Registros",
+                "emptyTable": "No hay departamentos en el sistema",
+                "info": "",
+                "search" :"Busqueda",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Ultimo",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                },
+            },
+            "pageLength": 5,
+        });
+    });
+    function Editar(url) {
+        $.ajax({
+            type: "GET",
+            url: url,
+            success: function (data) {
+                if(data.success)
+                {
+                    $("input#id_marca").val(data.id_marca);
+                    $("input#marca").val(data.marca);
+                    $.notify(data.marca, {
+                        globalPosition: "top center",
+                        className: "success"
+                    })
+                }
+            },
 
-<h2>Index</h2>
+        })
+    }
 
-<p>
-    Crear Persona
-</p>
-@Html.Partial("_crear", null)
+    function Delete(url) {
+        if (confirm("Eliminar el registro?")) {
+            $.ajax({
+                type: "POST",
+                url: url,
+                success: function (data) {
+                    if (data.success) {
+                        dataTable.ajax.reload();
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.marca)
-        </th>
-        <th></th>
-    </tr>
+                        $.notify(data.message, {
+                            globalPosition: "top center",
+                            className: "success"
+                        })
+                      
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.marca)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id_marca }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id_marca }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id_marca })
-        </td>
-    </tr>
+                    }
+                    else
+                    {
+                        $.notify(data.message, {
+                            globalPosition: "top center",
+                            className: "error"
+                        })
+                    }
+                },
+                error: function () {
+                    alert("No se pudo eliminar");
+                }
+
+            });
+        }
+        else {
+            $.notify("Sin cambios", {
+                globalPosition: "top center",
+                className: "info"
+            })
+        }
+    }
+
+    function SubmitForm(form) {
+        $.validator.unobtrusive.parse(form);
+        if ($(form).valid()) {
+            $.ajax({
+                type: "POST",
+                url: form.action,
+                data: $(form).serialize(),
+                success: function (data) {
+                    if (data.success) {
+                        //Popup.dialog('close');
+                        dataTable.ajax.reload();
+                        $("#marca").val("");
+                        $("#id_marca").val(0);
+                        $.notify(data.message, {
+                            globalPosition: "top center",
+                            className: "success"
+                        })
+
+                    }
+                }
+            });
+        }
+        return false;
+    }
+</script>
 }
-
-</table>
