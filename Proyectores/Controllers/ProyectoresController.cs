@@ -17,113 +17,76 @@ namespace Proyectores.Controllers
         // GET: Proyectors
         public ActionResult Index()
         {
-            var proyectores = db.Proyectores.Include(p => p.Estado).Include(p => p.Marca);
-            return View(proyectores.ToList());
-        }
-
-        // GET: Proyectors/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Proyector proyector = db.Proyectores.Find(id);
-            if (proyector == null)
-            {
-                return HttpNotFound();
-            }
-            return View(proyector);
-        }
-
-        // GET: Proyectors/Create
-        public ActionResult Create()
-        {
-            ViewBag.id_estado = new SelectList(db.Estados, "id_estado", "nombre");
-            ViewBag.id_marca = new SelectList(db.Marca, "id_marca", "marca");
             return View();
         }
 
-        // POST: Proyectors/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
+        public ActionResult getProyectores()
+        {
+            var lista = from item in db.Proyectores
+                        where item.activo == true
+                        select new {
+                            marca = item.Marca.marca,
+                            nombre = item.nombre,
+                            estado = item.Estado.nombre,
+                            id_proyector = item.id_proyector
+                        };
+            return Json(new {data = lista}, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public ActionResult Crear(int id = 0)
+        {
+            ViewBag.lista_marcas = new SelectList(db.Marca.ToList(), "id_marca", "marca");
+            ViewBag.lista_estados = new SelectList(db.Estados.ToList(), "id_estado", "nombre");            
+            if (id == 0)
+                return View(new Proyector());
+            else
+                return View(db.Proyectores.FirstOrDefault(x => x.id_proyector == id));
+        }
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id_proyector,id_marca,id_estado,nombre,activo")] Proyector proyector)
+        public ActionResult Crear([Bind(Include = "id_proyector,lista_marcas,lista_estados,nombre,activo")]Proyector proyector)
         {
-            if (ModelState.IsValid)
+            bool band = false;
+            string msj = "";
+            try
             {
-                db.Proyectores.Add(proyector);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                int id_marca = int.Parse(Request.Form["lista_marcas"]);
+                int id_estado = int.Parse(Request.Form["lista_estados"]);
 
-            ViewBag.id_estado = new SelectList(db.Estados, "id_estado", "nombre", proyector.id_estado);
-            ViewBag.id_marca = new SelectList(db.Marca, "id_marca", "marca", proyector.id_marca);
-            return View(proyector);
+                if (id_marca > 0 && id_estado > 0)
+                {
+                    proyector.id_marca = id_marca;
+                    proyector.id_estado = id_estado;
+
+                    if (proyector.id_proyector == 0)
+                    {
+                        if (ModelState.IsValid)
+                        {
+                            db.Proyectores.Add(proyector);
+                            db.SaveChanges();
+                            band = true;
+                            msj = "Proyector registrado Correctamente";
+                        }
+                    }
+                    else
+                    {
+                        db.Entry(proyector).State = EntityState.Modified;
+                        db.SaveChanges();
+                        band = true;
+                        msj = "Actualizado correctamente";
+                    }
+                }
+                else
+                {
+                    throw new Exception("No se ha seleccionado Marca ó Estado de Proyector");
+                }
+            }
+            catch (Exception ex)
+            {
+                band = false;
+                msj = "Error: " + ex.Message;
+            }
+            return Json(new { success = band, message = msj }, JsonRequestBehavior.AllowGet);
         }
-
-        // GET: Proyectors/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Proyector proyector = db.Proyectores.Find(id);
-            if (proyector == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.id_estado = new SelectList(db.Estados, "id_estado", "nombre", proyector.id_estado);
-            ViewBag.id_marca = new SelectList(db.Marca, "id_marca", "marca", proyector.id_marca);
-            return View(proyector);
-        }
-
-        // POST: Proyectors/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id_proyector,id_marca,id_estado,nombre,activo")] Proyector proyector)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(proyector).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.id_estado = new SelectList(db.Estados, "id_estado", "nombre", proyector.id_estado);
-            ViewBag.id_marca = new SelectList(db.Marca, "id_marca", "marca", proyector.id_marca);
-            return View(proyector);
-        }
-
-        // GET: Proyectors/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Proyector proyector = db.Proyectores.Find(id);
-            if (proyector == null)
-            {
-                return HttpNotFound();
-            }
-            return View(proyector);
-        }
-
-        // POST: Proyectors/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Proyector proyector = db.Proyectores.Find(id);
-            db.Proyectores.Remove(proyector);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

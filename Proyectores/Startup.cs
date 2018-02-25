@@ -2,6 +2,7 @@
 using Microsoft.Owin;
 using Owin;
 using Proyectores.Models;
+using System.Linq;
 
 [assembly: OwinStartupAttribute(typeof(Proyectores.Startup))]
 namespace Proyectores
@@ -13,6 +14,36 @@ namespace Proyectores
             ConfigureAuth(app);
             //CrearEspecialidades();
             //crearDepartamentos();
+            crearEstados();
+        }
+
+        private void crearEstados()
+        {
+            var db = new ApplicationDbContext();
+            try
+            {
+                if (db.Estados.ToList().Count > 0)
+                    throw new Exception("Ya se han registrado los estados");
+                else
+                {
+                    db.Estados.Add(new Estado { nombre = "Disponible"});
+                    db.Estados.Add(new Estado { nombre = "Prestado" });
+                    db.Estados.Add(new Estado { nombre = "Dañado" });
+                    db.Estados.Add(new Estado { nombre = "Mantenimiento" });
+                    db.Estados.Add(new Estado { nombre = "Eliminado" });
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Error durante la operacion");
+            }
+            finally
+            {
+                if (db.Database.Connection.State == System.Data.ConnectionState.Open)
+                    db.Database.Connection.Close();
+            }
+
         }
 
         private void crearDepartamentos()

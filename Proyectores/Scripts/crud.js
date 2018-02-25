@@ -26,19 +26,19 @@ function Delete(url) {
             success: function (data) {
                 if (data.success) {
                     dataTable.ajax.reload();
-
-                    $.notify(data.message, {
-                        globalPosition: "top center",
-                        className: "success"
-                    })
-
-                }
+                    Notificacion("warning", data.message, "pe-7s-check");
+                }else
+                    Notificacion("warning", data.message, "pe-7s-bell");
             },
             error: function(){
-                alert("No se pudo eliminar");
+                Notificacion("danger", "Error: No se ha eliminado", "pe-7s-close");
         }
 
         });
+    }
+    else
+    {
+        Notificacion("info", "Sin cambios", "pe-7s-smile");
     }
 }
 
@@ -53,12 +53,10 @@ function SubmitForm(form) {
                 if (data.success) {
                     Popup.dialog('close');
                     dataTable.ajax.reload();
-
-                    $.notify(data.message, {
-                        globalPosition: "top center",
-                        className: "success"
-                    })
-
+                    Notificacion("success", data.message, "pe-7s-check");
+                }
+                else {
+                    Notificacion("warning", data.message, "pe-7s-close");
                 }
             }
         });

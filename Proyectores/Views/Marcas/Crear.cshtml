@@ -19,8 +19,14 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Guardar" class="btn btn-default" />
+                <a href="#" onclick="limpiar()">Limpiar</a>
             </div>
         </div>
     </div>
 }
-
+<script>
+    function limpiar() {
+        $("input#id_marca").val(0);
+        $("input#marca").val("");
+    }
+</script>

@@ -97,7 +97,7 @@
                                 </p>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Agregar Marcas</a></li>
+                                <li><a href="@Url.Action("Index", "Marcas")">Agregar Marcas</a></li>
                                 <li><a href="#">Estados de prestamo</a></li>
                                 <li><a href="#">Especialidad Docentes</a></li>
                                 <li class="divider"></li>
@@ -134,7 +134,7 @@
         </div>
         <!-- Fin del panel principal-->
     </div>
-    <script src="~/Scripts/jquery-1.12.4.min.js"></script>
+    <script src="~/Scripts/jquery-3.2.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
@@ -142,7 +142,30 @@
     <script src="~/Scripts/jquery-notify.js"></script>
     <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
     <script src="~/Scripts/light-bootstrap-dashboard.js"></script>
+
     <script src="~/Scripts/notify.min.js"></script>
+
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.jqueryui.min.js"></script>
+    <script src="~/Scripts/bootstrap-notify.js"></script>
+    <script src="~/Scripts/bootstrap-select.js"></script>
+    <script>
+        function Notificacion(tipo, mensaje, icono) {
+            $.notify({
+                icon: icono,
+                message: mensaje
+
+            },{
+                type: tipo,
+                timer: 1000,
+                placement: {
+                    from: "top",
+                    align: "center"
+                }
+            });
+        }
+    </script>
     @RenderSection("Scripts", required: false)  
+
 </body>
 </html>

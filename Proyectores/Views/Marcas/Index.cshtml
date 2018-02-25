@@ -86,10 +86,7 @@
                 {
                     $("input#id_marca").val(data.id_marca);
                     $("input#marca").val(data.marca);
-                    $.notify(data.marca, {
-                        globalPosition: "top center",
-                        className: "success"
-                    })
+                    Notificacion("info", "Edicion Habilitada", 'pe-7s-check');
                 }
             },
 
@@ -104,33 +101,21 @@
                 success: function (data) {
                     if (data.success) {
                         dataTable.ajax.reload();
-
-                        $.notify(data.message, {
-                            globalPosition: "top center",
-                            className: "success"
-                        })
-                      
-
+                        Notificacion("warning", data.message, 'pe-7s-check');
                     }
                     else
                     {
-                        $.notify(data.message, {
-                            globalPosition: "top center",
-                            className: "error"
-                        })
+                        Notificacion("info", data.message, 'pe-7s-bell');
                     }
                 },
                 error: function () {
-                    alert("No se pudo eliminar");
+                    Notificacion("warning", data.message, 'pe-7s-close');
                 }
 
             });
         }
         else {
-            $.notify("Sin cambios", {
-                globalPosition: "top center",
-                className: "info"
-            })
+             Notificacion("info", 'Sin cambios', 'pe-7s-smile');
         }
     }
 
@@ -147,10 +132,7 @@
                         dataTable.ajax.reload();
                         $("#marca").val("");
                         $("#id_marca").val(0);
-                        $.notify(data.message, {
-                            globalPosition: "top center",
-                            className: "success"
-                        })
+                        Notificacion("success", data.message, "pe-7s-check");
 
                     }
                 }

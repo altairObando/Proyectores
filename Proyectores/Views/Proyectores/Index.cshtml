@@ -1,52 +1,61 @@
 ﻿@model IEnumerable<Proyectores.Models.Proyector>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Proyectores";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Index</h2>
-
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="#" onclick="PopupForm('@Url.Action("Crear","Proyectores")','Nuevo Proyector')">Crear <i class="glyphicon glyphicon-edit"></i></a>
 </p>
-<table class="table">
-    <tr>
-        <th>
-            Estado
-        </th>
-        <th>
-            Marca
-        </th>
-        <th>
-            Modelo
-        </th>
-        <th>
-            Activo
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Estado.nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Marca.marca)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.activo)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id_proyector }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id_proyector }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id_proyector })
-        </td>
-    </tr>
-}
-
+<table class="table table-hover table-striped table-responsive" id="tableProyectores">
+    <thead>
+        <tr>
+            <th>
+                Marca
+            </th>
+            <th>
+                Modelo
+            </th>
+            <th>
+                Estado
+            </th>
+            <th>Opciones</th>
+        </tr>
+    </thead>
 </table>
+@section scripts
+{
+<script src="~/Scripts/crud.js"></script>
+<script>
+
+    var Popup, dataTable;
+    //Cargando tabla de proyectores
+    $(document).ready(function () {
+        dataTable = $("#tableProyectores").DataTable({
+            "ajax": {
+                "type": "GET",
+                "datatype": "JSON",
+                "url": "/Proyectores/getProyectores"
+            },
+            "columns": [
+                { "data": "marca" },
+                { "data": "nombre" },
+                { "data": "estado" },
+                {"data": "id_proyector", "render": function (data) {
+                    return "<a href='#' onclick=Editar('@Url.Action("Crear","Proyectores")/" + data + "')><i class='fa fa-pencil'></i> Editar </a> |<a href='#' style='margin-left:1px' onclick=Delete('@Url.Action("Delete","Proyectores")/" + data + "')><i class='fa fa-trash'></i> Borrar</a>";
+                },
+                    "orderable": false,
+                    "searcheable": false,
+                    "width": "130px"
+                }
+                
+            ],
+            "language":
+                {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                }
+        });
+
+    });
+</script>
+}

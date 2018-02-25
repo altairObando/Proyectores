@@ -512,7 +512,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\crud.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
@@ -590,9 +589,14 @@
     <Content Include="Scripts\DataTables\responsive.jqueryui.min.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.min.js" />
-    <Content Include="Scripts\jquery-1.12.4.js" />
-    <Content Include="Scripts\jquery-1.12.4.min.js" />
-    <Content Include="Scripts\jquery-1.12.4.min.map" />
+    <None Include="Scripts\jquery-3.2.1.intellisense.js" />
+    <Content Include="Scripts\demo.js" />
+    <Content Include="Scripts\jquery-3.2.1.js" />
+    <Content Include="Scripts\jquery-3.2.1.min.js" />
+    <Content Include="Scripts\jquery-3.2.1.slim.js" />
+    <Content Include="Scripts\jquery-3.2.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.2.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-notify.js" />
     <Content Include="Scripts\jquery-notify.min.js" />
@@ -638,9 +642,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Docentes\Create.cshtml" />
-    <Content Include="Views\Docentes\Delete.cshtml" />
-    <Content Include="Views\Docentes\Details.cshtml" />
-    <Content Include="Views\Docentes\Edit.cshtml" />
     <Content Include="Views\Docentes\Index.cshtml" />
     <Content Include="Views\Devoluciones\Create.cshtml" />
     <Content Include="Views\Devoluciones\Delete.cshtml" />
@@ -657,7 +658,6 @@
     <Content Include="Views\Estados\Details.cshtml" />
     <Content Include="Views\Estados\Edit.cshtml" />
     <Content Include="Views\Estados\Index.cshtml" />
-    <Content Include="Views\Proyectores\Create.cshtml" />
     <Content Include="Views\Proyectores\Delete.cshtml" />
     <Content Include="Views\Proyectores\Details.cshtml" />
     <Content Include="Views\Proyectores\Edit.cshtml" />
@@ -672,6 +672,7 @@
     <Content Include="Views\Dpto\Index.cshtml" />
     <Content Include="Scripts\Spanish.json" />
     <Content Include="Views\Marcas\Crear.cshtml" />
+    <Content Include="Views\Proyectores\Crear.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

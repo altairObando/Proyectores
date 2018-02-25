@@ -5,7 +5,7 @@
 
 
 <p>
-    <a href="#" onclick="PopupForm('@Url.Action("Create","Dpto")')">Crear <i class="glyphicon glyphicon-edit"></i></a>
+    <a href="#" onclick="PopupForm('@Url.Action("Create","Dpto")','Nuevo Departamento')">Crear <i class="glyphicon glyphicon-edit"></i></a>
 </p>
 <table class="table table-condensed table-responsive table-striped" id="tblDepartamentos">
     <thead>
@@ -34,8 +34,7 @@
 </table>
 @section scripts
 {
-<script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
-<script src="~/Scripts/DataTables/dataTables.jqueryui.min.js"></script>
+<script src="~/Scripts/crud.js"></script>
 <script>
     var Popup, dataTable;
     $(document).ready(function () {
@@ -52,8 +51,9 @@
                 { "data": "historia" },
                 { "data": "ubicacion" },
                 { "data": "organizacion" },
-                { "data": "id_departamento" , "render": function (data) {
-                    return "<a href='#' onclick=PopupForm('@Url.Action("Create","Dpto")/" + data + "')><i class='fa fa-pencil'></i> Editar </a> |<a href='#' style='margin-left:1px' onclick=Delete("+data+")><i class='fa fa-trash'></i> Borrar</a>";
+                {
+                    "data": "id_departamento", "render": function (data) {
+                    return "<a href='#' onclick=PopupForm('@Url.Action("Create","Dpto")/" + data + "','Editar')><i class='fa fa-pencil'></i> Editar </a> |<a href='#' style='margin-left:1px' onclick=Delete('/Dpto/Delete/"+data+"')><i class='fa fa-trash'></i> Borrar</a>";
                 },
                     "orderable": false,
                     "searcheable": false,
@@ -67,68 +67,6 @@
             }
         });
     });
-    function PopupForm(url) {
-        var formDiv = $('<div/>');
-        $.get(url)
-        .done(function (response) {
-            formDiv.html(response);
-
-            Popup = formDiv.dialog({
-                autoOpen: true,
-                resizable: false,
-                title: 'Datos de Departamento',
-                height: 600,
-                width: 600,
-                close: function () {
-                    Popup.dialog('destroy').remove();
-                }
-
-            });
-        });
-    }
-    function SubmitForm(form) {
-        $.validator.unobtrusive.parse(form);
-        if ($(form).valid()) {
-            $.ajax({
-                type: "POST",
-                url: form.action,
-                data: $(form).serialize(),
-                success: function (data) {
-                    if (data.success) {
-                        Popup.dialog('close');
-                        dataTable.ajax.reload();
-
-                        $.notify(data.message, {
-                            globalPosition: "top center",
-                            className: "success"
-                        })
-
-                    }
-                }
-            });
-        }
-        return false;
-    }
-    function Delete(id) {
-        if (confirm('Confirme Eliminación')) {
-            $.ajax({
-                type: "POST",
-                url: '@Url.Action("Delete","Dpto")/' + id,
-                success: function (data) {
-                    if (data.success) {
-                        dataTable.ajax.reload();
-
-                        $.notify(data.message, {
-                            globalPosition: "top center",
-                            className: "success"
-                        })
-
-                    }
-                }
-
-            });
-        }
-    }
 </script>
 }
 
