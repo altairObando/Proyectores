@@ -9,7 +9,7 @@
             resizable: false,
             title: titulo,
             height: 600,
-            width: 600,
+            width: 1000,
             close: function () {
                 Popup.dialog('destroy').remove();
             }

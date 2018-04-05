@@ -12,7 +12,8 @@ namespace Proyectores
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
-            //CrearEspecialidades();
+
+            CrearEspecialidades();
             //crearDepartamentos();
             crearEstados();
         }
@@ -82,24 +83,27 @@ namespace Proyectores
             
             try
             {
-                var tipo = new string[] { "Ing.","Lic.", "Msc.","Dr." };
-                var carrera = new string[]
+                if(db.Especialidad.ToList().Count < 1)
                 {
+                    var tipo = new string[] { "Ing.", "Lic.", "Msc.", "Dr." };
+                    var carrera = new string[]
+                    {
                     "Ciencias de la Computacion",
                     "Sistemas de la Información",
                     "Telematica",
                     "Redes",
                     "Hardware"
-                };
-                foreach (var item in tipo)
-                {
-                    foreach (var item2 in carrera)
+                    };
+                    foreach (var item in tipo)
                     {
-                        var xx = new Especialidad { nombre = item + " " + item2 };
-                        db.Especialidad.Add(xx);
+                        foreach (var item2 in carrera)
+                        {
+                            var xx = new Especialidad { nombre = item + " " + item2 };
+                            db.Especialidad.Add(xx);
+                        }
                     }
+                    db.SaveChanges();
                 }
-                db.SaveChanges();
             }
             catch (System.Exception ex)
             {

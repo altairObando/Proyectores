@@ -53,7 +53,7 @@
                 { "data": "organizacion" },
                 {
                     "data": "id_departamento", "render": function (data) {
-                    return "<a href='#' onclick=PopupForm('@Url.Action("Create","Dpto")/" + data + "','Editar')><i class='fa fa-pencil'></i> Editar </a> |<a href='#' style='margin-left:1px' onclick=Delete('/Dpto/Delete/"+data+"')><i class='fa fa-trash'></i> Borrar</a>";
+                    return "<a href='#' onclick=PopupForm('@Url.Action("Create","Prestamos")/" + data + "','Editar')><i class='fa fa-pencil'></i> Editar </a> |<a href='#' style='margin-left:1px' onclick=Delete('/Prestamos/Delete/"+data+"')><i class='fa fa-trash'></i> Borrar</a>";
                 },
                     "orderable": false,
                     "searcheable": false,
@@ -63,7 +63,6 @@
             "language": {
                 "emptyTable": "No hay departamentos en el sistema",
                 "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json",
-                
             }
         });
     });
